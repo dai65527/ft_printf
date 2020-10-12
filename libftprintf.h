@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 07:47:33 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 08:03:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef	struct	s_printf_flags
 int				ft_printf(const char *format, ...);
 
 char			*ft_printf_findflags(const char *format, t_printf_flags *flags);
+void			ft_printf_initflags(t_printf_flags *flags);
 void			ft_printf_getwidth(int width_arg, t_printf_flags *flags);
 
 void			ft_printf_putnbr_base_digit(t_llong nbr, t_uint radix,
