@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:04:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/11 16:16:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 10:24:10 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static int		ft_printf_putarg_put(const char fc, va_list ap, t_printf_flags *flag
 {
 	if (fc == '%')
 		return (ft_printf_putpercent(ap, flags));
-	if (fc == 'd' || fc == 'i' || fc == 'u' || fc == 'x' || fc == 'X')
+	else if (fc == 'd' || fc == 'i' || fc == 'u' || fc == 'x' || fc == 'X')
 		return (ft_printf_putint(fc, ap, flags));
+	else if (fc == 'p')
+		return (ft_printf_putpointer(ap, flags));
 	return (1);
 }
 
