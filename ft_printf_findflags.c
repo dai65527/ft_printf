@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 08:24:20 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 15:46:28 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
 	flags->width = -1;
 	flags->precision = -1;
 	flags->flag = 0;
-	while (ft_printf_isflag(*format))
+	while (*format && ft_printf_isflag(*format))
 	{
 		if (*format == '-')
 			flags->flag = flags->flag | FLAG_LEFTADJUST;

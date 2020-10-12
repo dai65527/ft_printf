@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 12:26:26 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 14:52:17 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 15:29:14 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			ft_printf_putstr(va_list ap, t_printf_flags *flags)
 	const char	strnull[] = "(null)";
 
 	if (flags->flag & FLAG_WIDTH_NEXTARG)
-		flags->width = va_arg(ap, int);
+		ft_printf_getwidth(va_arg(ap, int), flags);
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
 	s = (char *)va_arg(ap, unsigned long long);

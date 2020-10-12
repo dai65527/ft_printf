@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 11:32:00 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 15:32:33 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 	const t_uint	radix = 10;
 
 	if (flags->flag & FLAG_WIDTH_NEXTARG)
-		flags->width = va_arg(ap, int);
+		ft_printf_getwidth(va_arg(ap, int), flags);
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
 	nbr = va_arg(ap, int);
@@ -50,7 +50,7 @@ static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags, const ch
 
 	radix = (fc == 'u' ? 10 : 16);
 	if (flags->flag & FLAG_WIDTH_NEXTARG)
-		flags->width = va_arg(ap, int);
+		ft_printf_getwidth(va_arg(ap, int), flags);
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
 	nbr = va_arg(ap, int);
