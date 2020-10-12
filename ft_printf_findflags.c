@@ -6,18 +6,17 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/11 08:54:57 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 08:24:20 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static char		*ft_printf_setwidth(const char *format, t_printf_flags *flags,
-										int flag_precision)
+static char		*ft_printf_setwidth(const char *format, t_printf_flags *flags)
 {
 	t_uint	res;
 
-	if (*format == '0' && !flag_precision)
+	if (*format == '0' && flags->precision == -1)
 	{
 		flags->flag = flags->flag | FLAG_ZEROPADDING;
 		format++;
@@ -27,7 +26,7 @@ static char		*ft_printf_setwidth(const char *format, t_printf_flags *flags,
 	{
 		res = res * 10 + *(format++) - '0';
 	}
-	if (flag_precision)
+	if (flags->precision != -1)
 		flags->precision = res;
 	else
 		flags->width = res;
@@ -53,11 +52,8 @@ static int		ft_printf_isflag(int c)
 
 char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
 {
-	int		flag_precision;
-
-	flag_precision = 0;
-	flags->width = 0;
-	flags->precision = 0;
+	flags->width = -1;
+	flags->precision = -1;
 	flags->flag = 0;
 	while (ft_printf_isflag(*format))
 	{
@@ -65,15 +61,15 @@ char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
 			flags->flag = flags->flag | FLAG_LEFTADJUST;
 		if (*format == '*')
 		{
-			if (flag_precision)
+			if (flags->precision != -1)
 				flags->flag = flags->flag | FLAG_PRECISION_NEXTARG;
 			else
 				flags->flag = flags->flag | FLAG_WIDTH_NEXTARG;
 		}
 		if (*format == '.')
-			flag_precision = 1;
+			flags->precision = 0;
 		if (ft_isdigit(*format))
-			format = ft_printf_setwidth(format, flags, flag_precision);
+			format = ft_printf_setwidth(format, flags);
 		else
 			format++;
 	}
