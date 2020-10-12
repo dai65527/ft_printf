@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:04:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 11:51:38 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 12:28:56 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int		ft_printf_putarg_put(const char fc, va_list ap, t_printf_flags *flag
 		return (ft_printf_putpointer(ap, flags));
 	else if (fc == 'c')
 		return (ft_printf_putbyte(ap, flags));
+	else if (fc == 's')
+		return (ft_printf_putstr(ap, flags));
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 11:59:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 12:40:05 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int				ft_printf_putnbr_width_digit(long long nbr, t_uint radix, int digit);
 
 char			*ft_printf_putarg(const char *format, va_list ap, int *count);
 int				ft_printf_putbyte(va_list ap, t_printf_flags *flags);
+int				ft_printf_putstr(va_list ap, t_printf_flags *flags);
 int				ft_printf_putint(char fc, va_list ap, t_printf_flags *flags);
 int				ft_printf_putpointer(va_list ap, t_printf_flags *flags);
 int				ft_printf_putpercent(va_list ap, t_printf_flags *flags);
