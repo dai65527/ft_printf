@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/12 16:32:04 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/12 22:35:00 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,20 +15,22 @@ CFLAGS			:= -Wall -Werror -Wextra
 NAME			:= libftprintf.a
 OUTPUTDIR		:= .
 OUTPUTS			:= $(addprefix $(OUTPUTDIR)/,$(NAME))
-SRCNAME			:= ft_printf.c ft_printf_findflags.c ft_printf_putnbr.c\
-					ft_printf_util.c\
-					ft_printf_putarg.c\
-					ft_printf_putbyte.c ft_printf_putstr.c\
-					ft_printf_putint.c ft_printf_putpadding.c\
+COMMONSRCNAME	:= ft_printf.c ft_printf_util.c ft_printf_putnbr.c\
+					ft_printf_putarg.c ft_printf_putbyte.c ft_printf_putstr.c\
+					ft_printf_putpadding.c\
 					ft_printf_putpercent.c ft_printf_putpointer.c
-# BONUSSRCNAME	:= 
+MANDSRCNAME		:= ft_printf_putint.c ft_printf_findflags.c
+BONUSSRCNAME	:= ft_printf_putint_bonus.c ft_printf_findflags_bonus.c
 SRCDIR			:= .
-SRCS			:= $(addprefix $(SRCDIR)/,$(SRCNAME))
-OBJNAME			:= $(SRCNAME:%.c=%.o)
-# BONUSOBJNAME	:= $(BONUSSRCNAME:%.c=%.o)
+MANDSRCS		:= $(addprefix $(SRCDIR)/,$(MANDSRCNAME))\
+					$(addprefix $(SRCDIR)/,$(COMMONSRCNAME))
+COMMONOBJNAME	:= $(COMMONSRCNAME:%.c=%.o)
+MANDOBJNAME		:= $(MANDSRCNAME:%.c=%.o)
+BONUSOBJNAME	:= $(BONUSSRCNAME:%.c=%.o)
 OBJDIR			:= $(SRCDIR)
-OBJS			:= $(addprefix $(OBJDIR)/,$(OBJNAME))
-# BONUSOBJS		:= $(addprefix $(OBJDIR)/,$(BONUSOBJNAME))
+COMMONOBJS		:= $(addprefix $(OBJDIR)/,$(COMMONOBJNAME))
+MANDOBJS		:= $(addprefix $(OBJDIR)/,$(MANDOBJNAME))
+BONUSOBJS		:= $(addprefix $(OBJDIR)/,$(BONUSOBJNAME))
 LIBNAME			:= libft.a
 LIBHEADERNAME	:= libft.h
 LIBDIR			:= libft
@@ -53,15 +55,18 @@ TESTINCLUDES	:= $(addprefix $(TESTDIR)/,$(TESTINCLUDENAME))
 .PHONY:			all
 all:			$(NAME)
 
-$(NAME):		$(OBJS) $(HEADERS)
+$(NAME):		$(COMMONOBJS) $(MANDOBJS) $(HEADERS)
 				cd $(LIBDIR)/ && make $(LIBNAME)
 				cp $(LIBDIR)/$(LIBNAME) $(OUTPUTDIR)/
 				mv $(LIBNAME) $(NAME)
-				ar r $(OUTPUTS) $(OBJS)
+				ar r $(OUTPUTS) $(COMMONOBJS) $(MANDOBJS)
 
 .PHONY:			bonus
-bonus:			$(OBJS) $(BONUSOBJS) $(HEADERS)
-				ar cr $(OUTPUTS) $(OBJS) $(BONUSOBJS)
+bonus:			$(COMMONOBJS) $(BONUSOBJS) $(HEADERS)
+				cd $(LIBDIR)/ && make $(LIBNAME)
+				cp $(LIBDIR)/$(LIBNAME) $(OUTPUTDIR)/
+				mv $(LIBNAME) $(NAME)
+				ar r $(OUTPUTS) $(COMMONOBJS) $(BONUSOBJS)
 
 .c.o:
 				$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(patsubst %.c,%.o,$<)
@@ -69,7 +74,7 @@ bonus:			$(OBJS) $(BONUSOBJS) $(HEADERS)
 .PHONY:			clean
 clean:
 				cd $(LIBDIR)/ && make clean
-				rm -f $(OBJS) $(BONUSOBJS)
+				rm -f $(COMMONOBJS) $(MANDOBJS) $(BONUSOBJS)
 
 .PHONY:			fclean
 fclean:			clean
