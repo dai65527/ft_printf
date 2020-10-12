@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/12 15:31:19 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/12 16:32:04 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,14 @@ HEADERS			:= $(addprefix $(HEADERDIR)/,$(HEADERNAME))\
 					$(addprefix $(LIBDIR)/,$(LIBHEADERNAME))
 TESTDIR			:= .
 TESTNAME		:= test.out
+TESTERRNAME		:= test_err.out
 TESTSRCNAME		:= test.c
+TESTERRSRCNAME	:= test_err.c
 # TESTINCLUDENAME	:= 
 TESTS			:= $(addprefix $(TESTDIR)/,$(TESTNAME))
+TESTERRS		:= $(addprefix $(TESTDIR)/,$(TESTERRNAME))
 TESTSRCS		:= $(addprefix $(TESTDIR)/,$(TESTSRCNAME))
+TESTERRSRCS		:= $(addprefix $(TESTDIR)/,$(TESTERRSRCNAME))
 TESTINCLUDES	:= $(addprefix $(TESTDIR)/,$(TESTINCLUDENAME))
 
 .SUFFIXES:		.o .c
@@ -82,6 +86,14 @@ $(TESTNAME):	$(OUTPUTS) $(TESTSRCS) $(TESTINCLUDES) $(OUTPUTNAME)
 .PHONY:			test
 test:			$(TESTNAME)
 				$(TESTDIR)/$(TESTNAME)
+
+$(TESTERRNAME):	$(OUTPUTS) $(TESTERRSRCS) $(TESTINCLUDES) $(OUTPUTNAME)
+				$(CC) $(TESTERRSRCS) -L. $(patsubst lib%.a,-l%,$(NAME)) -o $(TESTERRS)\
+					$(addprefix -include ,$(TESTINCLUDES))
+
+.PHONY:			testerr
+testerr:		$(TESTERRNAME)
+				$(TESTDIR)/$(TESTERRNAME)
 
 .PHONY:			debug
 debug:
