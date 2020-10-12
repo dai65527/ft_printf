@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 07:26:44 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/11 09:05:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 17:45:47 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int				ft_printf(const char *format, ...)
 			count++;
 		}
 	}
+	va_end(ap);
 	return (count);
 }
