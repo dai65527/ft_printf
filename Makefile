@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/12 11:09:19 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/12 12:06:57 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ OUTPUTDIR		:= .
 OUTPUTS			:= $(addprefix $(OUTPUTDIR)/,$(NAME))
 SRCNAME			:= ft_printf.c ft_printf_findflags.c ft_printf_putnbr.c\
 					ft_printf_putarg.c\
+					ft_printf_putbyte.c\
 					ft_printf_putint.c ft_printf_putpadding.c\
 					ft_printf_putpercent.c ft_printf_putpointer.c
 # BONUSSRCNAME	:= 
