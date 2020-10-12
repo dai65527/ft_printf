@@ -6,10 +6,11 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 20:48:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 07:06:46 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include    <stdio.h>
 #include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
@@ -19,12 +20,12 @@ static t_llong	ft_printf_putsignedint_storenbr(va_list ap,
 {
 	if (flags->flag & FLAG_LONGLONG)
 		return (va_arg(ap, t_llong));
-	else if (flags->flag & FLAG_LONGLONG)
+	else if (flags->flag & FLAG_LONG)
 		return (va_arg(ap, long));
 	else if (flags->flag & FLAG_SHORTSHORT)
-		return (va_arg(ap, char));
+		return ((char)va_arg(ap, int));
 	else if (flags->flag & FLAG_SHORT)
-		return (va_arg(ap, short));
+		return ((short)va_arg(ap, int));
 	return (va_arg(ap, int));
 }
 
@@ -60,13 +61,13 @@ static t_ullong	ft_printf_putunsignedint_storenbr(va_list ap,
 					t_printf_flags *flags)
 {
 	if (flags->flag & FLAG_LONGLONG)
-		return (va_arg(ap, t_ullong));
-	else if (flags->flag & FLAG_LONGLONG)
-		return (va_arg(ap, t_ulong));
+		return ((t_ullong)va_arg(ap, t_llong));
+	else if (flags->flag & FLAG_LONG)
+		return ((t_ulong)va_arg(ap, long));
 	else if (flags->flag & FLAG_SHORTSHORT)
-		return (va_arg(ap, t_uchar));
+		return ((t_uchar)va_arg(ap, int));
 	else if (flags->flag & FLAG_SHORT)
-		return (va_arg(ap, t_ushort));
+		return ((t_ushort)va_arg(ap, int));
 	return (va_arg(ap, t_uint));
 }
 

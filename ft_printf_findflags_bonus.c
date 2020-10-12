@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 20:00:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 07:06:03 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ static void		ft_printf_findflags_lh(char fc, t_printf_flags *flags)
 	if (fc == 'l')
 	{
 		if (flags->flag & FLAG_LONG)
-			flags->flag | FLAG_LONGLONG;
+			flags->flag = flags->flag | FLAG_LONGLONG;
 		else
-			flags->flag | FLAG_LONG;
+			flags->flag = flags->flag | FLAG_LONG;
 	}
 	else if (fc == 'h')
 	{
 		if (flags->flag & FLAG_SHORT)
-			flags->flag | FLAG_SHORTSHORT;
+			flags->flag = flags->flag | FLAG_SHORTSHORT;
 		else
-			flags->flag | FLAG_SHORT;
+			flags->flag = flags->flag | FLAG_SHORT;
 	}
 }
 
