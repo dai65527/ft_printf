@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_putint.c                                 :+:      :+:    :+:   */
+/*   ft_printf_putint_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 20:32:53 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 20:48:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
+
+static t_llong	ft_printf_putsignedint_storenbr(va_list ap,
+					t_printf_flags *flags)
+{
+	if (flags->flag & FLAG_LONGLONG)
+		return (va_arg(ap, t_llong));
+	else if (flags->flag & FLAG_LONGLONG)
+		return (va_arg(ap, long));
+	else if (flags->flag & FLAG_SHORTSHORT)
+		return (va_arg(ap, char));
+	else if (flags->flag & FLAG_SHORT)
+		return (va_arg(ap, short));
+	return (va_arg(ap, int));
+}
 
 static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 {
@@ -24,7 +38,7 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 		ft_printf_getwidth(va_arg(ap, int), flags);
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
-	nbr = va_arg(ap, int);
+	nbr = ft_printf_putsignedint_storenbr(ap, flags);
 	nbrwidth = ((nbr == 0 && flags->precision == 0)
 		? 0 : ft_printf_putnbr_width_digit(nbr, radix, flags->precision));
 	if (flags->precision >= 0)
@@ -42,6 +56,20 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 	return (nbrwidth < flags->width ? flags->width : nbrwidth);
 }
 
+static t_ullong	ft_printf_putunsignedint_storenbr(va_list ap,
+					t_printf_flags *flags)
+{
+	if (flags->flag & FLAG_LONGLONG)
+		return (va_arg(ap, t_ullong));
+	else if (flags->flag & FLAG_LONGLONG)
+		return (va_arg(ap, t_ulong));
+	else if (flags->flag & FLAG_SHORTSHORT)
+		return (va_arg(ap, t_uchar));
+	else if (flags->flag & FLAG_SHORT)
+		return (va_arg(ap, t_ushort));
+	return (va_arg(ap, t_uint));
+}
+
 static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
 					const char fc)
 {
@@ -54,7 +82,7 @@ static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
 		ft_printf_getwidth(va_arg(ap, int), flags);
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
-	nbr = va_arg(ap, t_uint);
+	nbr = ft_printf_putunsignedint_storenbr(ap, flags);
 	nbrwidth = ((nbr == 0 && flags->precision == 0)
 		? 0 : ft_printf_putnbr_width_digit(nbr, radix, flags->precision));
 	if (flags->precision >= 0)
