@@ -6,10 +6,11 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 18:37:19 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/06 18:44:46 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 18:11:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 void		*ft_calloc(size_t count, size_t size)

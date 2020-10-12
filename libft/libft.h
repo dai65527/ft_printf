@@ -6,17 +6,21 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/11 19:38:32 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 18:16:17 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdlib.h>
+# include <stddef.h>
 
-typedef unsigned char	t_uchar;
-typedef unsigned int	t_uint;
+typedef unsigned char		t_uchar;
+typedef unsigned int		t_uint;
+typedef unsigned short		t_ushort;
+typedef unsigned long		t_ulong;
+typedef long long			t_llong;
+typedef unsigned long long	t_ullong;
 
 typedef struct		s_list
 {
@@ -80,5 +84,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+
+size_t				ft_putstrn_fd(char *s, int fd, size_t n);
 
 #endif

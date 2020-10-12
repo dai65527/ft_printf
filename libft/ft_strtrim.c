@@ -6,10 +6,11 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 06:19:10 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/07 12:42:36 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 18:12:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 static int		isinset(char const c, char const *set)

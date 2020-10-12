@@ -6,10 +6,11 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 10:52:10 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/07 11:55:13 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 18:12:28 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 static char		*find_str(char const *s, char c, char opt)

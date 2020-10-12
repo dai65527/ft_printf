@@ -6,10 +6,11 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 16:21:23 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/07 07:57:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 18:12:27 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 char		*ft_strjoin(char const *s1, char const *s2)
