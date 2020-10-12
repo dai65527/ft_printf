@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 15:32:33 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/12 18:46:27 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 	return (nbrwidth < flags->width ? flags->width : nbrwidth);
 }
 
-static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags, const char fc)
+static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
+					const char fc)
 {
 	t_uint	nbr;
 	int		nbrwidth;
@@ -61,13 +62,15 @@ static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags, const ch
 	if (nbrwidth < flags->width && !(flags->flag & FLAG_LEFTADJUST))
 		ft_printf_putpadding(flags->width - nbrwidth, flags);
 	if (!(nbr == 0 && flags->precision == 0))
-		ft_printf_putnbr_unsigned_base_digit(nbr, radix, flags->precision, ft_isupper(fc));
+		ft_printf_putnbr_unsigned_base_digit(nbr, radix, flags->precision,
+												ft_isupper(fc));
 	if (nbrwidth < flags->width && (flags->flag & FLAG_LEFTADJUST))
 		ft_printf_putpadding(flags->width - nbrwidth, flags);
 	return (nbrwidth < flags->width ? flags->width : nbrwidth);
 }
 
-int				ft_printf_putint(const char fc, va_list ap, t_printf_flags *flags)
+int				ft_printf_putint(const char fc, va_list ap,
+									t_printf_flags *flags)
 {
 	int		count;
 
