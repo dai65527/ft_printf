@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 08:03:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 09:27:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void			ft_printf_putnbr_base_digit(t_llong nbr, t_uint radix,
 void			ft_printf_putnbr_unsigned_base_digit(t_ullong nbr, t_uint radix,
 					int digit, int flag_upcase);
 int				ft_printf_putnbr_width_digit(t_llong nbr, t_uint radix,
-					int digit);
+					t_printf_flags *flags);
+int				ft_printf_putnbr_unsigned_width_digit(t_ullong nbr,
+					t_uint radix, t_printf_flags *flags);
 
 char			*ft_printf_putarg(const char *format, va_list ap, int *count);
 int				ft_printf_putbyte(va_list ap, t_printf_flags *flags);

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 10:13:09 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 18:37:44 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 09:18:10 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int			ft_printf_putpointer(va_list ap, t_printf_flags *flags)
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
 	pt = va_arg(ap, t_ullong);
-	nbrwidth = 2 + ((pt == 0 && flags->precision == 0)
-		? 0 : ft_printf_putnbr_width_digit(pt, 16, flags->precision));
+	nbrwidth = 2 + ft_printf_putnbr_unsigned_width_digit(pt, 16, flags);
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
 	if (nbrwidth < flags->width && !(flags->flag & FLAG_LEFTADJUST))

@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/13 06:54:01 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/13 08:53:03 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,17 +55,17 @@ TESTINCLUDES	:= $(addprefix $(TESTDIR)/,$(TESTINCLUDENAME))
 .PHONY:			all
 all:			$(NAME)
 
-# $(NAME):		$(COMMONOBJS) $(MANDOBJS) $(HEADERS)
-# 				cd $(LIBDIR)/ && make $(LIBNAME)
-# 				cp $(LIBDIR)/$(LIBNAME) $(OUTPUTDIR)/
-# 				mv $(LIBNAME) $(NAME)
-# 				ar r $(OUTPUTS) $(COMMONOBJS) $(MANDOBJS)
-
-$(NAME):		$(COMMONOBJS) $(BONUSOBJS) $(HEADERS)
+$(NAME):		$(COMMONOBJS) $(MANDOBJS) $(HEADERS)
 				cd $(LIBDIR)/ && make $(LIBNAME)
 				cp $(LIBDIR)/$(LIBNAME) $(OUTPUTDIR)/
 				mv $(LIBNAME) $(NAME)
-				ar r $(OUTPUTS) $(COMMONOBJS) $(BONUSOBJS)
+				ar r $(OUTPUTS) $(COMMONOBJS) $(MANDOBJS)
+
+# $(NAME):		$(COMMONOBJS) $(BONUSOBJS) $(HEADERS)
+# 				cd $(LIBDIR)/ && make $(LIBNAME)
+# 				cp $(LIBDIR)/$(LIBNAME) $(OUTPUTDIR)/
+# 				mv $(LIBNAME) $(NAME)
+# 				ar r $(OUTPUTS) $(COMMONOBJS) $(BONUSOBJS)
 
 .PHONY:			bonus
 bonus:			$(COMMONOBJS) $(BONUSOBJS) $(HEADERS)

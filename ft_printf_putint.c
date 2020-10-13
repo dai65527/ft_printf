@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 20:32:53 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 09:17:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
 	nbr = va_arg(ap, int);
-	nbrwidth = ((nbr == 0 && flags->precision == 0)
-		? 0 : ft_printf_putnbr_width_digit(nbr, radix, flags->precision));
+	nbrwidth = ft_printf_putnbr_width_digit(nbr, radix, flags);
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
 	if (nbr < 0 && (flags->flag & FLAG_ZEROPADDING))
@@ -55,8 +54,7 @@ static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
 	if (flags->flag & FLAG_PRECISION_NEXTARG)
 		flags->precision = va_arg(ap, int);
 	nbr = va_arg(ap, t_uint);
-	nbrwidth = ((nbr == 0 && flags->precision == 0)
-		? 0 : ft_printf_putnbr_width_digit(nbr, radix, flags->precision));
+	nbrwidth = ft_printf_putnbr_unsigned_width_digit(nbr, radix, flags);
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
 	if (nbrwidth < flags->width && !(flags->flag & FLAG_LEFTADJUST))
