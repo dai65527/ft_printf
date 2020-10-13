@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 11:55:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 12:20:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 
-# define FLAG_ZEROPADDING		0b00000000001
-# define FLAG_LEFTADJUST		0b00000000010
-# define FLAG_WIDTH_NEXTARG		0b00000000100
-# define FLAG_PRECISION_NEXTARG 0b00000001000
-# define FLAG_PUTPOSSIGN		0b00000010000
-# define FLAG_PUTPOSSPACE		0b00000100000
-# define FLAG_ALTERNATE			0b00001000000
-# define FLAG_LONG				0b00010000000
-# define FLAG_LONGLONG			0b00100000000
-# define FLAG_SHORT				0b01000000000
-# define FLAG_SHORTSHORT		0b10000000000
+# define FLAG_ZEROPADDING		0x1
+# define FLAG_LEFTADJUST		0x2
+# define FLAG_WIDTH_NEXTARG		0x4
+# define FLAG_PRECISION_NEXTARG 0x8
+# define FLAG_PUTPOSSIGN		0x10
+# define FLAG_PUTPOSSPACE		0x20
+# define FLAG_ALTERNATE			0x40
+# define FLAG_LONG				0x80
+# define FLAG_LONGLONG			0x100
+# define FLAG_SHORT				0x200
+# define FLAG_SHORTSHORT		0x400
 
 typedef	struct	s_printf_flags
 {
