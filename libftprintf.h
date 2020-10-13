@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 12:20:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 14:30:49 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ int				ft_printf_putpercent(va_list ap, t_printf_flags *flags);
 
 void			ft_printf_putpadding(int width, t_printf_flags *flags);
 void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
+void			ft_printf_getwidth_prec(va_list ap, t_printf_flags *flags);
+void			ft_printf_putintalternate(const char fc);
 
 #endif

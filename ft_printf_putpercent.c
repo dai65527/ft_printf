@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:59:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 12:15:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 15:38:31 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int				ft_printf_putpercent(va_list ap, t_printf_flags *flags)
 {
 	if (flags->width == -1)
 		flags->width = 0;
-	if (flags->flag & FLAG_WIDTH_NEXTARG)
-		flags->width = va_arg(ap, int);
-	if (flags->flag & FLAG_PRECISION_NEXTARG)
-		flags->precision = va_arg(ap, int);
+	ft_printf_getwidth_prec(ap, flags);
 	if (flags->flag & FLAG_LEFTADJUST)
 		write(1, "%", 1);
 	ft_printf_putpadding(flags->width - 1, flags);

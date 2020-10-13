@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 11:17:56 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 19:41:35 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 	int				nbrwidth;
 	const t_uint	radix = 10;
 
-	if (flags->flag & FLAG_WIDTH_NEXTARG)
-		ft_printf_getwidth(va_arg(ap, int), flags);
-	if (flags->flag & FLAG_PRECISION_NEXTARG)
-		flags->precision = va_arg(ap, int);
+	ft_printf_getwidth_prec(ap, flags);
 	nbr = ft_printf_putsignedint_storenbr(ap, flags);
 	nbrwidth = ft_printf_putnbr_width_digit(nbr, radix, flags);
 	if (flags->precision >= 0)
@@ -77,16 +74,19 @@ static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
 	t_uint		radix;
 
 	radix = (fc == 'u' ? 10 : 16);
-	if (flags->flag & FLAG_WIDTH_NEXTARG)
-		ft_printf_getwidth(va_arg(ap, int), flags);
-	if (flags->flag & FLAG_PRECISION_NEXTARG)
-		flags->precision = va_arg(ap, int);
+	ft_printf_getwidth_prec(ap, flags);
 	nbr = ft_printf_putunsignedint_storenbr(ap, flags);
 	nbrwidth = ft_printf_putnbr_unsigned_width_digit(nbr, radix, flags);
+	if ((flags->flag & FLAG_ALTERNATE) && (fc == 'x' || fc == 'X') && nbr)
+		nbrwidth += 2;
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
+	if ((flags->flag & FLAG_ALTERNATE) && (flags->flag & FLAG_ZEROPADDING))
+		ft_printf_putintalternate(nbr ? fc : 0);
 	if (nbrwidth < flags->width && !(flags->flag & FLAG_LEFTADJUST))
 		ft_printf_putpadding(flags->width - nbrwidth, flags);
+	if ((flags->flag & FLAG_ALTERNATE) && !(flags->flag & FLAG_ZEROPADDING))
+		ft_printf_putintalternate(nbr ? fc : 0);
 	if (!(nbr == 0 && flags->precision == 0))
 		ft_printf_putnbr_unsigned_base_digit(nbr, radix, flags->precision,
 												ft_isupper(fc));
