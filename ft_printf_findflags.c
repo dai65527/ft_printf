@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 08:04:15 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 08:56:43 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ static int		ft_printf_isflag(int c)
 		i++;
 	}
 	return (0);
+}
+
+static void		ft_printf_findflags_precision(t_printf_flags *flags)
+{
+	if (flags->precision != -1)
+		flags->flag = flags->flag | FLAG_PRECISION_NEXTARG;
+	else
+		flags->flag = flags->flag | FLAG_WIDTH_NEXTARG;
 }
 
 char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
