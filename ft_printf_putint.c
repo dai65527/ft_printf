@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 09:17:22 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 10:22:14 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static int		ft_printf_putsignedint(va_list ap, t_printf_flags *flags)
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
 	if (nbr < 0 && (flags->flag & FLAG_ZEROPADDING))
-		write(1, "-", 1);
+		ft_printf_putsign(nbr < 0, nbr == 0, flags);
 	if (nbrwidth < flags->width && !(flags->flag & FLAG_LEFTADJUST))
 		ft_printf_putpadding(flags->width - nbrwidth, flags);
 	if (nbr < 0 && !(flags->flag & FLAG_ZEROPADDING))
-		write(1, "-", 1);
+		ft_printf_putsign(nbr < 0, nbr == 0, flags);
 	if (!(nbr == 0 && flags->precision == 0))
 		ft_printf_putnbr_base_digit(nbr, radix, flags->precision, 0);
 	if (nbrwidth < flags->width && (flags->flag & FLAG_LEFTADJUST))

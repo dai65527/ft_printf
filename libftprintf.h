@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 09:27:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 11:55:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define FLAG_LONGLONG			0b00100000000
 # define FLAG_SHORT				0b01000000000
 # define FLAG_SHORTSHORT		0b10000000000
-
 
 typedef	struct	s_printf_flags
 {
@@ -59,5 +58,6 @@ int				ft_printf_putpointer(va_list ap, t_printf_flags *flags);
 int				ft_printf_putpercent(va_list ap, t_printf_flags *flags);
 
 void			ft_printf_putpadding(int width, t_printf_flags *flags);
+void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
 
 #endif

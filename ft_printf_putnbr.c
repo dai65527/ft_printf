@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:02:54 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 09:24:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/13 11:50:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@ int		ft_printf_putnbr_width_digit(t_llong nbr, t_uint radix,
 
 	digit = flags->precision;
 	count = 0;
+	if (nbr < 0 || flags->flag & (FLAG_PUTPOSSPACE | FLAG_PUTPOSSIGN))
+		count++;
 	if (nbr == 0)
 	{
 		if (digit == 0)
-			return ((flags->flag & FLAG_PUTPOSSPACE) ? 1 : 0);
-		return (digit > 1 ? digit : 1);
+			return (flags->flag & (FLAG_PUTPOSSPACE | FLAG_PUTPOSSIGN) ? 1 : 0);
+		return (digit > 1 ? digit + count : 1 + count);
 	}
 	nbr_abs = nbr < 0 ? -nbr : nbr;
-	if (nbr < 0 || flags->flag & FLAG_PUTPOSSPACE ||
-			(nbr > 0 && (flags->flag & FLAG_PUTPOSSIGN)))
-		count++;
 	while (nbr_abs > 0 || digit > 0)
 	{
 		nbr_abs /= radix;
@@ -52,11 +51,9 @@ int		ft_printf_putnbr_unsigned_width_digit(t_ullong nbr, t_uint radix,
 	if (nbr == 0)
 	{
 		if (digit == 0)
-			return ((flags->flag & FLAG_PUTPOSSPACE) ? 1 : 0);
-		return (digit > 1 ? digit : 1);
+			return (0);
+		return (digit > 1 ? digit + count : 1 + count);
 	}
-	if (flags->flag & FLAG_PUTPOSSPACE || flags->flag & FLAG_PUTPOSSIGN)
-		count++;
 	while (nbr > 0 || digit > 0)
 	{
 		nbr /= radix;
