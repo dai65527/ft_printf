@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_putarg.c                                 :+:      :+:    :+:   */
+/*   ft_printf_putarg_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:04:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/15 18:43:30 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/16 16:19:44 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		ft_printf_putarg_put(const char fc, va_list ap,
 		return (ft_printf_putbyte(ap, flags));
 	else if (fc == 's')
 		return (ft_printf_putstr(ap, flags));
-	else if (fc == 'f')
+	else if (fc == 'f' || fc == 'e')
 		return (ft_printf_putfloat(fc, ap, flags));
 	return (-1);
 }
