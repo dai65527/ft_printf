@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 14:30:49 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/16 10:34:21 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFTPRINTF_H
 
 # include <stdarg.h>
+# include <stdint.h>
 # include "libft/libft.h"
 
 # define FLAG_ZEROPADDING		0x1
@@ -28,12 +29,24 @@
 # define FLAG_SHORT				0x200
 # define FLAG_SHORTSHORT		0x400
 
+# define FLT_MTSSIZE 151
+# define FLT_INTSIZE 39
+
 typedef	struct	s_printf_flags
 {
 	int			flag;
 	int			width;
 	int			precision;
 }				t_printf_flags;
+
+typedef struct	s_float
+{
+	u_int8_t	sign;
+	int8_t		exp;
+	u_int32_t	frac;
+	int8_t		int_dec[FLT_INTSIZE];
+	int8_t		mts_dec[FLT_MTSSIZE];
+}				t_float;
 
 int				ft_printf(const char *format, ...);
 
@@ -56,10 +69,19 @@ int				ft_printf_putstr(va_list ap, t_printf_flags *flags);
 int				ft_printf_putint(char fc, va_list ap, t_printf_flags *flags);
 int				ft_printf_putpointer(va_list ap, t_printf_flags *flags);
 int				ft_printf_putpercent(va_list ap, t_printf_flags *flags);
+int				ft_printf_putfloat(const char fc, va_list ap,
+									t_printf_flags *flags);
 
 void			ft_printf_putpadding(int width, t_printf_flags *flags);
 void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
 void			ft_printf_getwidth_prec(va_list ap, t_printf_flags *flags);
 void			ft_printf_putintalternate(const char fc);
+
+t_float			ft_store_iflt(float num);
+void			ft_itg_dbl(int8_t *itg, int size);
+void			ft_arr_add(int8_t *a, int8_t *b, int size);
+void			ft_mts_divbytwo(int8_t *mts, int size);
+void			ft_float_round(t_float *iflt, int digit);
+void			ft_float_roundup(t_float *iflt, int digit);
 
 #endif

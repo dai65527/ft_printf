@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/13 15:42:21 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/16 07:13:20 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,15 @@ NAME			:= libftprintf.a
 OUTPUTDIR		:= .
 OUTPUTS			:= $(addprefix $(OUTPUTDIR)/,$(NAME))
 COMMONSRCNAME	:= ft_printf.c ft_printf_util.c ft_printf_putnbr.c\
-					ft_printf_putarg.c ft_printf_putbyte.c ft_printf_putstr.c\
+					ft_printf_putbyte.c ft_printf_putstr.c\
 					ft_printf_putpadding.c\
 					ft_printf_putpercent.c ft_printf_putpointer.c
-MANDSRCNAME		:= ft_printf_putint.c ft_printf_findflags.c
-BONUSSRCNAME	:= ft_printf_putint_bonus.c ft_printf_findflags_bonus.c
+MANDSRCNAME		:= ft_printf_putint.c ft_printf_findflags.c\
+					ft_printf_putarg.c
+BONUSSRCNAME	:= ft_printf_putint_bonus.c ft_printf_findflags_bonus.c\
+					ft_printf_putarg_bonus.c\
+					ft_printf_putfloat_bonus.c ft_printf_floatutil_bonus.c\
+					ft_store_iflt.c
 SRCDIR			:= .
 MANDSRCS		:= $(addprefix $(SRCDIR)/,$(MANDSRCNAME))\
 					$(addprefix $(SRCDIR)/,$(COMMONSRCNAME))
@@ -79,7 +83,7 @@ bonus:			$(COMMONOBJS) $(BONUSOBJS) $(HEADERS)
 
 .PHONY:			clean
 clean:
-				cd $(LIBDIR)/ && make clean
+				cd $(LIBDIR)/ && make fclean
 				rm -f $(COMMONOBJS) $(MANDOBJS) $(BONUSOBJS)
 
 .PHONY:			fclean
