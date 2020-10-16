@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:48:02 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/16 15:13:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 08:07:43 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
 #include "libftprintf.h"
 
 void			ft_mts_divbytwo(int8_t *mts, int size)
@@ -113,8 +112,8 @@ static int		ft_round_check(t_float *iflt, int digit)
 
 void			ft_float_round(t_float *iflt, int digit)
 {
-	if ((digit > FLT_INTSIZE - 1) || (-digit > FLT_MTSSIZE) ||
-			!iflt->frac || iflt->exp == (FLT_EXPBIAS + 1))
+	if ((digit > FLT_INTSIZE - 1) || (digit < -FLT_MTSSIZE) ||
+			(!iflt->frac && iflt->exp == (FLT_EXPBIAS + 1)))
 		return ;
 	if (digit > 0)
 	{
