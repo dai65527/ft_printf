@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 18:36:42 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/16 10:03:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:34:33 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,26 @@ int				ft_printf_putfloat_f_width(t_float iflt, t_printf_flags *flags)
 	int		intwidth;
 	int		mstwidth;
 
-	if (iflt.exp == -128)
-		return ((!iflt.frac && iflt.sign) ? 4 : 3);
+	if (iflt.exp == (FLT_EXPBIAS + 1))
+	{
+		if (iflt.sign || flags->flag & (FLAG_PUTPOSSPACE | FLAG_PUTPOSSIGN))
+			return (4);
+		return (3);
+	}
 	mstwidth = (flags->precision || flags->flag & FLAG_ALTERNATE)
 				? flags->precision + 1 : 0;
-	intwidth = 0;
-	while (iflt.int_dec[FLT_INTSIZE - intwidth - 1])
-		intwidth++;
-	if (!intwidth)
-		intwidth = 1;
+	intwidth = FLT_INTSIZE;
+	while (intwidth > 1 && !iflt.int_dec[FLT_INTSIZE - intwidth])
+		intwidth--;
 	if (iflt.sign || flags->flag & (FLAG_PUTPOSSPACE | FLAG_PUTPOSSIGN))
 		return (intwidth + mstwidth + 1);
 	return (intwidth + mstwidth);
 }
 
-void			ft_putnaninf(int flag_isnan, int flag_isneg)
+void			ft_putnaninf(int flag_isnan)
 {
 	if (flag_isnan)
 		write(1, "nan", 3);
-	else if (flag_isneg)	
-		write(1, "-inf", 4);
 	else
 		write(1, "inf", 3);
 }
@@ -48,16 +48,11 @@ static void		ft_printf_putfloat_f_put(t_float iflt, t_printf_flags *flags)
 {
 	int		i;
 
-	if (iflt.exp == -128)
+	if (iflt.exp == (FLT_EXPBIAS + 1))
 	{
-		ft_putnaninf(!iflt.frac, iflt.sign);
+		ft_putnaninf(!!iflt.frac);
 		return ;
 	}
-	// i = 0;
-	// printf("\n");
-	// while(i < 10)
-	// 	printf("%d", iflt.mts_dec[i++]);
-	// printf("\n");
 	ft_float_round(&iflt, -flags->precision);
 	i = 0;
 	while (!iflt.int_dec[i] && i < FLT_INTSIZE - 1)
@@ -70,28 +65,28 @@ static void		ft_printf_putfloat_f_put(t_float iflt, t_printf_flags *flags)
 	while (i < flags->precision)
 	{
 		if (i < FLT_MTSSIZE - 1)
-			ft_putchar_fd(iflt.mts_dec[i++] + '0', 1);
+			ft_putchar_fd(iflt.mts_dec[i] + '0', 1);
 		else
 			write(1, "0", 1);
+		i++;
 	}
 }
 
 int				ft_printf_putfloat_f(va_list ap, t_printf_flags *flags)
 {
-	float		nbr;
+	double		nbr;
 	int			nbrwidth;
 	t_float		iflt;
 
 	ft_printf_getwidth_prec(ap, flags);
 	if (flags->precision < 0)
 		flags->precision = 6;
-	nbr = (float)va_arg(ap, double);
+	nbr = va_arg(ap, double);
 	iflt = ft_store_iflt(nbr);
-	// i = 0;
-	// printf("\n");
-	// while(i < 10)
-	// 	printf("%d", iflt.mts_dec[i++]);
-	// printf("\n");
+	if (iflt.exp == (FLT_EXPBIAS + 1))
+		flags->flag &= ~(FLAG_ZEROPADDING);
+	if (iflt.exp == (FLT_EXPBIAS + 1) && !!iflt.frac)
+		flags->flag &= ~(FLAG_PUTPOSSIGN | FLAG_PUTPOSSPACE);
 	nbrwidth = ft_printf_putfloat_f_width(iflt, flags);
 	if (flags->flag & FLAG_ZEROPADDING)
 		ft_printf_putsign(iflt.sign, flags);

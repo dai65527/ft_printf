@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/16 10:34:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/16 11:27:10 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@
 # define FLAG_SHORT				0x200
 # define FLAG_SHORTSHORT		0x400
 
-# define FLT_MTSSIZE 151
-# define FLT_INTSIZE 39
+# define FLT_MTSSIZE	1076
+# define FLT_INTSIZE	309
+# define FLT_FRACBIT	52
+# define FLT_EXPBIAS	1023
+# define FLT_EXPBIT		11
 
 typedef	struct	s_printf_flags
 {
@@ -42,8 +45,8 @@ typedef	struct	s_printf_flags
 typedef struct	s_float
 {
 	u_int8_t	sign;
-	int8_t		exp;
-	u_int32_t	frac;
+	int32_t		exp;
+	u_int64_t	frac;
 	int8_t		int_dec[FLT_INTSIZE];
 	int8_t		mts_dec[FLT_MTSSIZE];
 }				t_float;
@@ -77,7 +80,7 @@ void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
 void			ft_printf_getwidth_prec(va_list ap, t_printf_flags *flags);
 void			ft_printf_putintalternate(const char fc);
 
-t_float			ft_store_iflt(float num);
+t_float			ft_store_iflt(double num);
 void			ft_itg_dbl(int8_t *itg, int size);
 void			ft_arr_add(int8_t *a, int8_t *b, int size);
 void			ft_mts_divbytwo(int8_t *mts, int size);
