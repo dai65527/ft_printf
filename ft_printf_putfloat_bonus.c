@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 18:36:42 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 08:00:34 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 13:50:16 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,18 +196,11 @@ int				ft_printf_putfloat_e(t_float iflt, t_printf_flags *flags)
 	flags->flag &= ~(FLAG_ZEROPADDING);
 	if (iflt.exp == (FLT_EXPBIAS + 1) && !!iflt.frac)
 		flags->flag &= ~(FLAG_PUTPOSSIGN | FLAG_PUTPOSSPACE);
-	// if (iflt.exp != (FLT_EXPBIAS + 1))
-	// 	flags->width = 0;
-	// else if (iflt.exp == (FLT_EXPBIAS + 1) && flags->width < 0)
-	// 	flags->width = 6;
 	e = ft_printf_putfloat_e_get(iflt, flags);
 	ft_float_round(&iflt, e - flags->precision);
 	nbrwidth = ft_printf_putfloat_e_width(iflt, flags, e);
-	// if (flags->flag & flag_zeropadding)
-	// 	ft_printf_putsign(iflt.sign, flags);
 	if (nbrwidth < flags->width && !(flags->flag & FLAG_LEFTADJUST))
 		ft_printf_putpadding(flags->width - nbrwidth, flags);
-	// if (!(flags->flag & FLAG_ZEROPADDING))
 	ft_printf_putsign(iflt.sign, flags);
 	ft_printf_putfloat_e_put(iflt, flags, e);
 	if (nbrwidth < flags->width && (flags->flag & FLAG_LEFTADJUST))
@@ -222,7 +215,6 @@ int				ft_printf_putfloat(const char fc, va_list ap,
 	double		nbr;
 	t_float		iflt;
 
-	ft_printf_getwidth_prec(ap, flags);
 	nbr = va_arg(ap, double);
 	iflt = ft_store_iflt(nbr);
 	count = 0;

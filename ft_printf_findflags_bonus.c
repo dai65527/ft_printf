@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 08:12:27 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 14:06:54 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char		*ft_printf_setwidth(const char *format, t_printf_flags *flags)
 {
 	t_uint	res;
 
-	if (*format == '0' && flags->precision == -1)
+	if (*format == '0' && flags->precision != -2)
 	{
 		flags->flag = flags->flag | FLAG_ZEROPADDING;
 		format++;
@@ -26,7 +26,7 @@ static char		*ft_printf_setwidth(const char *format, t_printf_flags *flags)
 	{
 		res = res * 10 + *(format++) - '0';
 	}
-	if (flags->precision != -1)
+	if (flags->precision == -2)
 		flags->precision = res;
 	else
 		flags->width = res;
@@ -68,15 +68,19 @@ static void		ft_printf_findflags_lh(char fc, t_printf_flags *flags)
 	}
 }
 
-static void		ft_printf_findflags_precision(t_printf_flags *flags)
+static void		ft_printf_findflags_getarg(va_list ap, t_printf_flags *flags)
 {
-	if (flags->precision != -1)
-		flags->flag = flags->flag | FLAG_PRECISION_NEXTARG;
+	if (flags->precision == -2)
+	{
+		flags->precision = va_arg(ap, long);
+		if (flags->precision == -2)
+			flags->precision = -1;
+	}
 	else
-		flags->flag = flags->flag | FLAG_WIDTH_NEXTARG;
+		ft_printf_getwidth(va_arg(ap, long), flags);
 }
 
-char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
+char			*ft_printf_findflags(const char *format, va_list ap, t_printf_flags *flags)
 {
 	ft_printf_initflags(flags);
 	while (*format && ft_printf_isflag(*format))
@@ -90,9 +94,9 @@ char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
 		if (*format == '#')
 			flags->flag = flags->flag | FLAG_ALTERNATE;
 		if (*format == '*')
-			ft_printf_findflags_precision(flags);
+			ft_printf_findflags_getarg(ap, flags);
 		if (*format == '.')
-			flags->precision = 0;
+			flags->precision = -2;
 		if (*format == 'l' || *format == 'h')
 			ft_printf_findflags_lh(*format, flags);
 		if (ft_isdigit(*format))
@@ -100,5 +104,7 @@ char			*ft_printf_findflags(const char *format, t_printf_flags *flags)
 		else
 			format++;
 	}
+	if (flags->precision == -2)
+		flags->precision = 0;
 	return ((char *)format);
 }

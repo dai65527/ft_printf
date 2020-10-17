@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/16 11:27:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 14:02:53 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_float
 
 int				ft_printf(const char *format, ...);
 
-char			*ft_printf_findflags(const char *format, t_printf_flags *flags);
+char			*ft_printf_findflags(const char *format, va_list ap, t_printf_flags *flags);
 void			ft_printf_initflags(t_printf_flags *flags);
 void			ft_printf_getwidth(int width_arg, t_printf_flags *flags);
 
@@ -71,13 +71,12 @@ int				ft_printf_putbyte(va_list ap, t_printf_flags *flags);
 int				ft_printf_putstr(va_list ap, t_printf_flags *flags);
 int				ft_printf_putint(char fc, va_list ap, t_printf_flags *flags);
 int				ft_printf_putpointer(va_list ap, t_printf_flags *flags);
-int				ft_printf_putpercent(va_list ap, t_printf_flags *flags);
+int				ft_printf_putpercent(t_printf_flags *flags);
 int				ft_printf_putfloat(const char fc, va_list ap,
 									t_printf_flags *flags);
 
 void			ft_printf_putpadding(int width, t_printf_flags *flags);
 void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
-void			ft_printf_getwidth_prec(va_list ap, t_printf_flags *flags);
 void			ft_printf_putintalternate(const char fc);
 
 t_float			ft_store_iflt(double num);

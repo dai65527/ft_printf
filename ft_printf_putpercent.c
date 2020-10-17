@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:59:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 15:38:31 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 13:51:02 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 #include <stdarg.h>
 #include "libftprintf.h"
 
-int				ft_printf_putpercent(va_list ap, t_printf_flags *flags)
+int				ft_printf_putpercent(t_printf_flags *flags)
 {
 	if (flags->width == -1)
 		flags->width = 0;
-	ft_printf_getwidth_prec(ap, flags);
 	if (flags->flag & FLAG_LEFTADJUST)
 		write(1, "%", 1);
 	ft_printf_putpadding(flags->width - 1, flags);

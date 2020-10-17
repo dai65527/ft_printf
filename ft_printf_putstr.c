@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 12:26:26 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 12:41:52 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 13:50:26 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int			ft_printf_putstr(va_list ap, t_printf_flags *flags)
 	char		*s;
 	const char	strnull[] = "(null)";
 
-	ft_printf_getwidth_prec(ap, flags);
 	s = (char *)va_arg(ap, t_ullong);
 	if (!s)
 		s = (char *)strnull;
