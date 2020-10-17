@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 12:26:26 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 15:39:04 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 12:41:52 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int			ft_printf_putstr(va_list ap, t_printf_flags *flags)
 	len = ft_strlen(s);
 	if (flags->precision >= 0)
 	{
-		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
 		if (flags->precision < len)
 			len = flags->precision;
 	}

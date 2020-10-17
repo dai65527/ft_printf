@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:52:05 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 15:37:57 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 09:06:38 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 int			ft_printf_putbyte(va_list ap, t_printf_flags *flags)
 {
-	char	c;
+	t_uchar	c;
 
 	if (flags->width == -1)
 		flags->width = 0;
 	ft_printf_getwidth_prec(ap, flags);
-	c = va_arg(ap, int);
+	c = (t_uchar)va_arg(ap, t_ullong);
 	if (flags->flag & FLAG_LEFTADJUST)
 		write(1, &c, 1);
 	ft_printf_putpadding(flags->width - 1, flags);
