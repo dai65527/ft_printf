@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 18:36:42 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 13:50:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 17:39:03 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,8 @@ int				ft_printf_putfloat_f(t_float iflt, t_printf_flags *flags)
 {
 	int			nbrwidth;
 
-	if (flags->precision < 0)
-		flags->precision = 6;
 	if (iflt.exp == (FLT_EXPBIAS + 1))
 		flags->flag &= ~(FLAG_ZEROPADDING);
-	if (iflt.exp == (FLT_EXPBIAS + 1) && !!iflt.frac)
-		flags->flag &= ~(FLAG_PUTPOSSIGN | FLAG_PUTPOSSPACE);
 	nbrwidth = ft_printf_putfloat_f_width(iflt, flags);
 	if (flags->flag & FLAG_ZEROPADDING)
 		ft_printf_putsign(iflt.sign, flags);
@@ -191,11 +187,7 @@ int				ft_printf_putfloat_e(t_float iflt, t_printf_flags *flags)
 	int			nbrwidth;
 	int			e;
 
-	if (flags->precision < 0)
-		flags->precision = 6;
 	flags->flag &= ~(FLAG_ZEROPADDING);
-	if (iflt.exp == (FLT_EXPBIAS + 1) && !!iflt.frac)
-		flags->flag &= ~(FLAG_PUTPOSSIGN | FLAG_PUTPOSSPACE);
 	e = ft_printf_putfloat_e_get(iflt, flags);
 	ft_float_round(&iflt, e - flags->precision);
 	nbrwidth = ft_printf_putfloat_e_width(iflt, flags, e);
@@ -208,6 +200,41 @@ int				ft_printf_putfloat_e(t_float iflt, t_printf_flags *flags)
 	return (nbrwidth < flags->width ? flags->width : nbrwidth);
 }
 
+int				ft_printf_putfloat_g(t_float iflt, t_printf_flags *flags)
+{
+	t_float		iflt_o;
+	int			e;
+
+	iflt_o = iflt;
+	if (flags->precision == 0)
+		flags->precision = 1;
+	e = ft_printf_putfloat_e_get(iflt, flags);
+	if (e < -4 || e >= flags->precision)
+	{
+		flags->precision--;
+		if (-e + flags->precision >= FLT_MTSSIZE)
+			flags->precision = FLT_MTSSIZE + e - 1;
+		ft_float_round(&iflt, e - flags->precision);
+		while (flags->precision > 0)
+		{
+			if (flags->precision - e >= 1 && iflt.mts_dec[flags->precision - e - 1])
+				break ;
+			else if (flags->precision - e < 1 && iflt.int_dec[FLT_INTSIZE + flags->precision - e - 1])
+				break ;
+			flags->precision--;
+		}
+		// printf("iflt.mts_dec[%d] = %d\n", -e + flags->precision - 1,iflt.mts_dec[-e + flags->precision - 1]);
+		// printf("flags->prec = %d\n", flags->precision);
+		return (ft_printf_putfloat_e(iflt_o, flags));
+	}
+	if (flags->precision >= e + 1)
+		flags->precision -= (e + 1);
+	ft_float_round(&iflt, -flags->precision);
+	while (flags->precision > 0 && !iflt.mts_dec[flags->precision - 1])
+		flags->precision--;
+	return (ft_printf_putfloat_f(iflt_o, flags));
+}
+
 int				ft_printf_putfloat(const char fc, va_list ap,
 									t_printf_flags *flags)
 {
@@ -217,10 +244,16 @@ int				ft_printf_putfloat(const char fc, va_list ap,
 
 	nbr = va_arg(ap, double);
 	iflt = ft_store_iflt(nbr);
+	if (iflt.exp == (FLT_EXPBIAS + 1) && !!iflt.frac)
+		flags->flag &= ~(FLAG_PUTPOSSIGN | FLAG_PUTPOSSPACE);
+	if (flags->precision < 0)
+		flags->precision = 6;
 	count = 0;
 	if (fc == 'f')
 		count = ft_printf_putfloat_f(iflt, flags);
-	if (fc == 'e')
+	else if (fc == 'e')
 		count = ft_printf_putfloat_e(iflt, flags);
+	else if (fc == 'g')
+		count = ft_printf_putfloat_g(iflt, flags);
 	return (count);
 }
