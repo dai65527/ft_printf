@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 15:28:17 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 14:01:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 14:25:56 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,6 @@ void		ft_printf_putintalternate(const char fc)
 		write(1, "0x", 2);
 	else if (fc == 'X')
 		write(1, "0X", 2);
+	else if (fc == 'o')
+		write(1, "0", 1);
 }

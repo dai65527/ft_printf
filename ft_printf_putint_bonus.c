@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 13:50:29 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/17 14:28:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ static t_ullong	ft_printf_putunsignedint_storenbr(va_list ap,
 	return (va_arg(ap, t_uint));
 }
 
+static int 		ft_getradix(const char fc)
+{
+	if (fc == 'u')
+		return (10);
+	else if (fc == 'o')
+		return (8);
+	return (16);
+}
+
 static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
 					const char fc)
 {
@@ -72,11 +81,11 @@ static int		ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
 	int			nbrwidth;
 	t_uint		radix;
 
-	radix = (fc == 'u' ? 10 : 16);
+	radix = ft_getradix(fc);
 	nbr = ft_printf_putunsignedint_storenbr(ap, flags);
 	nbrwidth = ft_printf_putnbr_unsigned_width_digit(nbr, radix, flags);
-	if ((flags->flag & FLAG_ALTERNATE) && (fc == 'x' || fc == 'X') && nbr)
-		nbrwidth += 2;
+	if ((flags->flag & FLAG_ALTERNATE) && (fc == 'x' || fc == 'X' || fc == 'o') && nbr)
+		nbrwidth += (fc == 'o') ? 1 : 2;
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;
 	if ((flags->flag & FLAG_ALTERNATE) && (flags->flag & FLAG_ZEROPADDING))
@@ -101,7 +110,7 @@ int				ft_printf_putint(const char fc, va_list ap,
 	count = 0;
 	if (fc == 'd' || fc == 'i')
 		count = ft_printf_putsignedint(ap, flags);
-	else if (fc == 'u' || fc == 'x' || fc == 'X')
+	else if (fc == 'u' || fc == 'x' || fc == 'X' || fc == 'o')
 		count = ft_printf_putunsignedint(ap, flags, fc);
 	return (count);
 }
