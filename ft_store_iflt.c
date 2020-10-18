@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:48:02 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/16 12:15:25 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 12:38:51 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
 #include "libftprintf.h"
 
 static void		ft_store_iflt_mts(t_float *iflt)
@@ -71,7 +70,7 @@ static void		ft_store_iflt_int(t_float *iflt)
 		ft_itg_dbl(iflt->int_dec, FLT_INTSIZE);
 }
 
-t_float		ft_store_iflt(double num)
+t_float			ft_store_iflt(double num)
 {
 	u_int64_t	mem;
 	t_float		iflt;

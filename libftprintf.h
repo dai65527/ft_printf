@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 11:15:42 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 12:35:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,19 @@ void			ft_printf_putpadding(int width, t_printf_flags *flags);
 void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
 void			ft_printf_putintalternate(const char fc);
 
+int				ft_printf_putsignedint(va_list ap, t_printf_flags *flags);
+int				ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
+											const char fc);
+
+int				ft_printf_putfloat_f(t_float iflt, t_printf_flags *flags);
+int				ft_printf_putfloat_e(t_float iflt, t_printf_flags *flags);
+int				ft_printf_putfloat_e_get(t_float iflt, t_printf_flags *flags);
+int				ft_printf_putfloat_g(t_float iflt, t_printf_flags *flags);
 t_float			ft_store_iflt(double num);
 void			ft_itg_dbl(int8_t *itg, int size);
 void			ft_arr_add(int8_t *a, int8_t *b, int size);
 void			ft_mts_divbytwo(int8_t *mts, int size);
+void			ft_putnaninf(int flag_isnan);
 void			ft_float_round(t_float *iflt, int digit);
 void			ft_float_roundup(t_float *iflt, int digit);
 

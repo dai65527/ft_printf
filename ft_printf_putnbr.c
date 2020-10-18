@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:02:54 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/13 11:50:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 12:57:51 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libftprintf.h"
 
 int		ft_printf_putnbr_width_digit(t_llong nbr, t_uint radix,
@@ -76,7 +75,7 @@ void	ft_printf_putnbr_unsigned_base_digit(t_ullong nbr, t_uint radix,
 	if (nbr >= radix || digit - 1 > 0)
 		ft_printf_putnbr_unsigned_base_digit(nbr / radix, radix, digit - 1,
 												flag_upcase);
-	write(1, base + nbr % radix, 1);
+	ft_putchar_fd(base[nbr % radix], 1);
 }
 
 void	ft_printf_putnbr_base_digit(t_llong nbr, t_uint radix, int digit,

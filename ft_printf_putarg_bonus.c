@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:04:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 11:14:13 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 13:09:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
 
@@ -19,7 +18,8 @@ static int		ft_printf_putarg_put(const char fc, va_list ap,
 {
 	if (fc == '%')
 		return (ft_printf_putpercent(flags));
-	else if (fc == 'd' || fc == 'i' || fc == 'u' || fc == 'x' || fc == 'X' || fc == 'o')
+	else if (fc == 'd' || fc == 'i' || fc == 'u' || fc == 'x' ||
+				fc == 'X' || fc == 'o')
 		return (ft_printf_putint(fc, ap, flags));
 	else if (fc == 'p')
 		return (ft_printf_putpointer(ap, flags));

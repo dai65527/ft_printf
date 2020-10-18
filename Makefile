@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/18 11:13:27 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/18 12:37:36 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,16 @@ COMMONSRCNAME	:= ft_printf.c ft_printf_util.c ft_printf_putnbr.c\
 					ft_printf_putpercent.c ft_printf_putpointer.c
 MANDSRCNAME		:= ft_printf_putint.c ft_printf_findflags.c\
 					ft_printf_putarg.c
-BONUSSRCNAME	:= ft_printf_putint_bonus.c ft_printf_findflags_bonus.c\
+BONUSSRCNAME	:= ft_printf_findflags_bonus.c\
 					ft_printf_putarg_bonus.c\
-					ft_printf_putfloat_bonus.c ft_printf_floatutil_bonus.c\
-					ft_store_iflt.c ft_printf_store_n_bonus.c
+					ft_printf_putint_bonus.c\
+					ft_printf_putint_signed.c ft_printf_putint_unsigned.c\
+					ft_printf_putfloat_bonus.c ft_store_iflt.c\
+					ft_printf_floatutil_bonus.c ft_printf_floatutil2_bonus.c\
+					ft_printf_putfloat_f_bonus.c\
+					ft_printf_putfloat_e_bonus.c\
+					ft_printf_putfloat_g_bonus.c\
+					ft_printf_store_n_bonus.c
 SRCDIR			:= .
 MANDSRCS		:= $(addprefix $(SRCDIR)/,$(MANDSRCNAME))\
 					$(addprefix $(SRCDIR)/,$(COMMONSRCNAME))

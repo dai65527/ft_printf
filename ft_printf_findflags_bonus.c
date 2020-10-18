@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 14:06:54 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 12:21:32 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static void		ft_printf_findflags_getarg(va_list ap, t_printf_flags *flags)
 		ft_printf_getwidth(va_arg(ap, long), flags);
 }
 
-char			*ft_printf_findflags(const char *format, va_list ap, t_printf_flags *flags)
+char			*ft_printf_findflags(const char *format, va_list ap,
+										t_printf_flags *flags)
 {
 	ft_printf_initflags(flags);
 	while (*format && ft_printf_isflag(*format))

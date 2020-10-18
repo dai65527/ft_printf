@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 07:26:44 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/12 17:45:47 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 13:06:29 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
 
@@ -27,7 +26,7 @@ int				ft_printf(const char *format, ...)
 			format = ft_printf_putarg(format + 1, ap, &count);
 		else
 		{
-			write(1, format++, 1);
+			ft_putchar_fd(*(format++), 1);
 			count++;
 		}
 	}

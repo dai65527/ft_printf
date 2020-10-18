@@ -6,23 +6,12 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 12:26:26 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 13:50:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 13:00:54 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
-
-size_t		ft_putstrn_fd(char *s, int fd, size_t n)
-{
-	size_t	count;
-
-	count = 0;
-	while (s[count] && count < n)
-		write(fd, s + count++, 1);
-	return (count);
-}
 
 int			ft_printf_putstr(va_list ap, t_printf_flags *flags)
 {

@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:04:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 10:20:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 13:09:25 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
 
