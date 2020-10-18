@@ -6,7 +6,7 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 08:47:29 by dnakano           #+#    #+#              #
-#    Updated: 2020/10/16 07:13:20 by dnakano          ###   ########.fr        #
+#    Updated: 2020/10/18 11:13:27 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MANDSRCNAME		:= ft_printf_putint.c ft_printf_findflags.c\
 BONUSSRCNAME	:= ft_printf_putint_bonus.c ft_printf_findflags_bonus.c\
 					ft_printf_putarg_bonus.c\
 					ft_printf_putfloat_bonus.c ft_printf_floatutil_bonus.c\
-					ft_store_iflt.c
+					ft_store_iflt.c ft_printf_store_n_bonus.c
 SRCDIR			:= .
 MANDSRCS		:= $(addprefix $(SRCDIR)/,$(MANDSRCNAME))\
 					$(addprefix $(SRCDIR)/,$(COMMONSRCNAME))

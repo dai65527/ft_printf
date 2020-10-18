@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 14:02:53 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 11:15:42 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void			ft_arr_add(int8_t *a, int8_t *b, int size);
 void			ft_mts_divbytwo(int8_t *mts, int size);
 void			ft_float_round(t_float *iflt, int digit);
 void			ft_float_roundup(t_float *iflt, int digit);
+
+void			ft_printf_store_n(va_list ap, t_printf_flags *flags, int count);
 
 #endif

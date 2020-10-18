@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:04:45 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 14:35:56 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 10:20:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char			*ft_printf_putarg(const char *format, va_list ap, int *count)
 	int				res;
 	t_printf_flags	flags;
 
-	format = ft_printf_findflags(format, &flags);
+	format = ft_printf_findflags(format, ap, &flags);
 	res = ft_printf_putarg_put(*format, ap, &flags);
 	if (res == -1)
 		return ((char *)format);
