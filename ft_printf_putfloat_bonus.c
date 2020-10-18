@@ -6,11 +6,10 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 18:36:42 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/17 17:39:03 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 09:55:46 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include   <stdio.h>   
 #include <unistd.h>
 #include <stdarg.h>
 #include "libftprintf.h"
@@ -26,6 +25,7 @@ int				ft_printf_putfloat_f_width(t_float iflt, t_printf_flags *flags)
 			return (4);
 		return (3);
 	}
+	ft_float_round(&iflt, -flags->precision);
 	mstwidth = (flags->precision || flags->flag & FLAG_ALTERNATE)
 				? flags->precision + 1 : 0;
 	intwidth = FLT_INTSIZE;
@@ -208,11 +208,16 @@ int				ft_printf_putfloat_g(t_float iflt, t_printf_flags *flags)
 	iflt_o = iflt;
 	if (flags->precision == 0)
 		flags->precision = 1;
+	ft_float_round(&iflt, -flags->precision + 1);
 	e = ft_printf_putfloat_e_get(iflt, flags);
+	iflt = iflt_o;
+	// printf("\ne = %d, prec = %d\n", e, flags->precision);
 	if (e < -4 || e >= flags->precision)
 	{
 		flags->precision--;
-		if (-e + flags->precision >= FLT_MTSSIZE)
+		if (flags->flag & FLAG_ALTERNATE)
+			return (ft_printf_putfloat_e(iflt_o, flags));
+		if (flags->precision - e >= FLT_MTSSIZE)
 			flags->precision = FLT_MTSSIZE + e - 1;
 		ft_float_round(&iflt, e - flags->precision);
 		while (flags->precision > 0)
@@ -223,12 +228,15 @@ int				ft_printf_putfloat_g(t_float iflt, t_printf_flags *flags)
 				break ;
 			flags->precision--;
 		}
-		// printf("iflt.mts_dec[%d] = %d\n", -e + flags->precision - 1,iflt.mts_dec[-e + flags->precision - 1]);
-		// printf("flags->prec = %d\n", flags->precision);
 		return (ft_printf_putfloat_e(iflt_o, flags));
 	}
+	e = ft_printf_putfloat_e_get(iflt, flags);
 	if (flags->precision >= e + 1)
 		flags->precision -= (e + 1);
+	if (flags->flag & FLAG_ALTERNATE)
+		return (ft_printf_putfloat_f(iflt_o, flags));
+	if (flags->precision >= FLT_MTSSIZE)
+		flags->precision = FLT_MTSSIZE - 1;
 	ft_float_round(&iflt, -flags->precision);
 	while (flags->precision > 0 && !iflt.mts_dec[flags->precision - 1])
 		flags->precision--;
