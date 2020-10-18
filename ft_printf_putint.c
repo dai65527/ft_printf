@@ -6,14 +6,14 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 14:04:03 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 14:25:20 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 
-int				ft_printf_putint(const char fc, va_list ap,
+int				ft_printf_putint(const char fc, va_list *ap,
 									t_printf_flags *flags)
 {
 	int		count;

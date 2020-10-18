@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 08:49:46 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 14:04:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 14:21:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,19 @@ static void		ft_printf_findflags_lh(char fc, t_printf_flags *flags)
 	}
 }
 
-static void		ft_printf_findflags_getarg(va_list ap, t_printf_flags *flags)
+static void		ft_printf_findflags_getarg(va_list *ap, t_printf_flags *flags)
 {
 	if (flags->precision == -2)
 	{
-		flags->precision = va_arg(ap, long);
+		flags->precision = va_arg(*ap, long);
 		if (flags->precision == -2)
 			flags->precision = -1;
 	}
 	else
-		ft_printf_getwidth(va_arg(ap, long), flags);
+		ft_printf_getwidth(va_arg(*ap, long), flags);
 }
 
-char			*ft_printf_findflags(const char *format, va_list ap,
+char			*ft_printf_findflags(const char *format, va_list *ap,
 										t_printf_flags *flags)
 {
 	ft_printf_initflags(flags);

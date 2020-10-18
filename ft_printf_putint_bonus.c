@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_putbyte.c                                :+:      :+:    :+:   */
+/*   ft_printf_putint_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 11:52:05 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 14:25:25 by dnakano          ###   ########.fr       */
+/*   Created: 2020/10/11 08:57:15 by dnakano           #+#    #+#             */
+/*   Updated: 2020/10/18 14:25:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdarg.h>
 #include "libftprintf.h"
 
-int			ft_printf_putbyte(va_list *ap, t_printf_flags *flags)
+int				ft_printf_putint(const char fc, va_list *ap,
+									t_printf_flags *flags)
 {
-	t_uchar	c;
+	int		count;
 
-	if (flags->width == -1)
-		flags->width = 0;
-	c = (t_uchar)va_arg(*ap, t_ullong);
-	if (flags->flag & FLAG_LEFTADJUST)
-		ft_putchar_fd(c, 1);
-	ft_printf_putpadding(flags->width - 1, flags);
-	if (!(flags->flag & FLAG_LEFTADJUST))
-		ft_putchar_fd(c, 1);
-	return (flags->width ? flags->width : 1);
+	count = 0;
+	if (fc == 'd' || fc == 'i')
+		count = ft_printf_putsignedint(ap, flags);
+	else if (fc == 'u' || fc == 'x' || fc == 'X' || fc == 'o')
+		count = ft_printf_putunsignedint(ap, flags, fc);
+	return (count);
 }

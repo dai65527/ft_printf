@@ -6,19 +6,19 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 10:13:09 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 13:07:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 14:25:19 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 
-int			ft_printf_putpointer(va_list ap, t_printf_flags *flags)
+int			ft_printf_putpointer(va_list *ap, t_printf_flags *flags)
 {
 	int			nbrwidth;
 	t_ullong	pt;
 
-	pt = va_arg(ap, t_ullong);
+	pt = va_arg(*ap, t_ullong);
 	nbrwidth = 2 + ft_printf_putnbr_unsigned_width_digit(pt, 16, flags);
 	if (flags->precision >= 0)
 		flags->flag = flags->flag & ~FLAG_ZEROPADDING;

@@ -6,21 +6,21 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 18:36:42 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 13:09:27 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 14:25:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "libftprintf.h"
 
-int				ft_printf_putfloat(const char fc, va_list ap,
+int				ft_printf_putfloat(const char fc, va_list *ap,
 									t_printf_flags *flags)
 {
 	int			count;
 	double		nbr;
 	t_float		iflt;
 
-	nbr = va_arg(ap, double);
+	nbr = va_arg(*ap, double);
 	iflt = ft_store_iflt(nbr);
 	if (iflt.exp == (FLT_EXPBIAS + 1) && !!iflt.frac)
 		flags->flag &= ~(FLAG_PUTPOSSIGN | FLAG_PUTPOSSPACE);

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:01:52 by dnakano           #+#    #+#             */
-/*   Updated: 2020/10/18 12:35:22 by dnakano          ###   ########.fr       */
+/*   Updated: 2020/10/18 14:28:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct	s_float
 
 int				ft_printf(const char *format, ...);
 
-char			*ft_printf_findflags(const char *format, va_list ap, t_printf_flags *flags);
+char			*ft_printf_findflags(const char *format, va_list *ap,
+					t_printf_flags *flags);
 void			ft_printf_initflags(t_printf_flags *flags);
 void			ft_printf_getwidth(int width_arg, t_printf_flags *flags);
 
@@ -66,21 +67,21 @@ int				ft_printf_putnbr_width_digit(t_llong nbr, t_uint radix,
 int				ft_printf_putnbr_unsigned_width_digit(t_ullong nbr,
 					t_uint radix, t_printf_flags *flags);
 
-char			*ft_printf_putarg(const char *format, va_list ap, int *count);
-int				ft_printf_putbyte(va_list ap, t_printf_flags *flags);
-int				ft_printf_putstr(va_list ap, t_printf_flags *flags);
-int				ft_printf_putint(char fc, va_list ap, t_printf_flags *flags);
-int				ft_printf_putpointer(va_list ap, t_printf_flags *flags);
+char			*ft_printf_putarg(const char *format, va_list *ap, int *count);
+int				ft_printf_putbyte(va_list *ap, t_printf_flags *flags);
+int				ft_printf_putstr(va_list *ap, t_printf_flags *flags);
+int				ft_printf_putint(char fc, va_list *ap, t_printf_flags *flags);
+int				ft_printf_putpointer(va_list *ap, t_printf_flags *flags);
 int				ft_printf_putpercent(t_printf_flags *flags);
-int				ft_printf_putfloat(const char fc, va_list ap,
+int				ft_printf_putfloat(const char fc, va_list *ap,
 									t_printf_flags *flags);
 
 void			ft_printf_putpadding(int width, t_printf_flags *flags);
 void			ft_printf_putsign(int flag_neg, t_printf_flags *flags);
 void			ft_printf_putintalternate(const char fc);
 
-int				ft_printf_putsignedint(va_list ap, t_printf_flags *flags);
-int				ft_printf_putunsignedint(va_list ap, t_printf_flags *flags,
+int				ft_printf_putsignedint(va_list *ap, t_printf_flags *flags);
+int				ft_printf_putunsignedint(va_list *ap, t_printf_flags *flags,
 											const char fc);
 
 int				ft_printf_putfloat_f(t_float iflt, t_printf_flags *flags);
@@ -95,6 +96,7 @@ void			ft_putnaninf(int flag_isnan);
 void			ft_float_round(t_float *iflt, int digit);
 void			ft_float_roundup(t_float *iflt, int digit);
 
-void			ft_printf_store_n(va_list ap, t_printf_flags *flags, int count);
+void			ft_printf_store_n(va_list *ap, t_printf_flags *flags,
+					int count);
 
 #endif
